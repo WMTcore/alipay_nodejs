@@ -8,12 +8,13 @@ var middleware = require('../../middleware');
 var DOMParser = require('xmldom').DOMParser;
 var https = require('https');
 var xml2js = require('xml2js')
+var _ = require('lodash');
 
 var default_alipay_config = {
     partner:'' //合作身份者id，以2088开头的16位纯数字
     ,key:''//安全检验码，以数字和字母组成的32位字符
     ,seller_email:'' //卖家支付宝帐户 必填
-    ,host:'http://192.168.1.29:3000/' //域名
+    ,host:'' //域名
     ,cacert:'cacert.pem'//ca证书路径地址，用于curl中ssl校验 请保证cacert.pem文件在当前文件夹目录中
     ,transport:'https' //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
     ,input_charset:'utf-8'//字符编码格式 目前支持 gbk 或 utf-8
@@ -23,7 +24,6 @@ var default_alipay_config = {
     ,refund_fastpay_by_platform_pwd_notify_url : '/alipay/refund_fastpay_by_platform_pwd/notify_url'
     ,create_partner_trade_by_buyer_notify_url: '/aplipay/create_partner_trade_by_buyer/notify_url'
     ,create_partner_trade_by_buyer_return_url: '/aplipay/create_partner_trade_by_buyer/return_url'
-    
     ,trade_create_by_buyer_return_url : '/alipay/trade_create_by_buyer/return_url'
     ,trade_create_by_buyer_notify_url: '/alipay/trade_create_by_buyer/notify_url'
 };
@@ -34,9 +34,7 @@ function Alipay(alipay_config){
     //default config
     this.alipay_config = default_alipay_config;
     //config merge
-    for(var key in alipay_config){
-        this.alipay_config[key] = alipay_config[key];
-    }       
+    _.merge(this.alipay_config,alipay_config);    
 }
 
 /**
@@ -81,12 +79,9 @@ Alipay.prototype.create_direct_pay_by_user = function(data, res){
         ,seller_email:this.alipay_config.seller_email //卖家支付宝帐户 必填      
         ,_input_charset:this.alipay_config['input_charset'].toLowerCase().trim()
     };
-    for(var key in data){
-        parameter[key] = data[key];
-    }
+    _.merge(parameter,data);
     
     var html_text = alipaySubmit.buildRequestForm(parameter);
-    console.error(html_text)
     res.send(html_text);
 }
 
@@ -116,7 +111,6 @@ Alipay.prototype.refund_fastpay_by_platform_pwd = function(data, res){
     };
 
     var html_text = alipaySubmit.buildRequestForm(parameter);
-    console.error(html_text)
     res.send(html_text);
 }
 
@@ -153,7 +147,6 @@ Alipay.prototype.create_partner_trade_by_buyer = function(data, res){
     };
 
     var html_text = alipaySubmit.buildRequestForm(parameter);
-    console.error(html_text)
     res.send(html_text);
 }
 
@@ -473,6 +466,7 @@ Alipay.prototype.create_direct_pay_by_user_return = function(req, res){
     
 }
 
+//报关接口
 Alipay.prototype.alipay_acquire_customs = function(data){
     var self = this;
     //建立请求

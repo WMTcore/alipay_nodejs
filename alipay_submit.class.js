@@ -74,11 +74,9 @@ AlipaySubmit.prototype.buildRequestParaToString = function(para_temp) {
 }
 
 /**
- * 建立请求，以表单HTML形式构造（默认）
+ * 建立请求
  * @param para_temp 请求参数数组
- * @param method 提交方式。两个值可选：post、get
- * @param button_name 确认按钮显示文字
- * @return 提交表单HTML文本
+ * @return URL
  */
 AlipaySubmit.prototype.buildRequestForm = function(para_temp) {
     //待请求参数数组
@@ -89,25 +87,6 @@ AlipaySubmit.prototype.buildRequestForm = function(para_temp) {
         url += "&" + key + "=" + val;
     }
     return url;
-    //     var para = this.buildRequestPara(para_temp);
-
-    // var sHtml = "<form id='alipaysubmit' name='alipaysubmit 'target= '_blank' action='"
-    //         + this.alipay_gateway_new
-    //         +  "_input_charset="
-    //         + this.alipay_config['input_charset'].toLowerCase().trim()
-    //         + "='" + method + "'>";
-
-    // for(var key in para){
-    //     var val = para[key];
-    //     sHtml += "<input type='hidden' name='" + key + "' value='" + val + "'/>";
-    // }
-
-    // //submit按钮控件请不要含有name属性
-    // sHtml = sHtml+ "<input type='submit' value='" + button_name + "'></form>";
-
-    // sHtml = sHtml + "<script>document.forms['alipaysubmit'].submit();</script>";
-
-    // return sHtml;
 }
 
 /**
