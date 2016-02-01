@@ -81,8 +81,8 @@ Alipay.prototype.create_direct_pay_by_user = function(data, res){
     };
     _.merge(parameter,data);
     
-    var html_text = alipaySubmit.buildRequestForm(parameter);
-    res.send(html_text);
+    var url = alipaySubmit.buildRequestParaToString(parameter);
+    res.send(url);
 }
 
 //即时到账批量退款有密接口
@@ -101,7 +101,7 @@ Alipay.prototype.refund_fastpay_by_platform_pwd = function(data, res){
     var parameter = {
         service : 'refund_fastpay_by_platform_pwd',
         partner : this.alipay_config.partner,
-        notify_url  : url.resolve(this.alipay_config.host, this.alipay_config.refund_fastpay_by_platform_pwd_notify_url),
+        notify_url  : this.alipay_config.host+this.alipay_config.refund_fastpay_by_platform_pwd_notify_url,
         seller_email    : this.alipay_config.seller_email,
         refund_date : data.refund_date,
         batch_no    : data.batch_no,
@@ -110,8 +110,8 @@ Alipay.prototype.refund_fastpay_by_platform_pwd = function(data, res){
         _input_charset  : this.alipay_config['input_charset'].toLowerCase().trim()
     };
 
-    var html_text = alipaySubmit.buildRequestForm(parameter);
-    res.send(html_text);
+    var url = alipaySubmit.buildRequestParaToString(parameter);
+    res.send(url);
 }
 
 //支付宝纯担保交易接口接口
@@ -146,8 +146,8 @@ Alipay.prototype.create_partner_trade_by_buyer = function(data, res){
         _input_charset  : this.alipay_config['input_charset'].toLowerCase().trim()
     };
 
-    var html_text = alipaySubmit.buildRequestForm(parameter);
-    res.send(html_text);
+    var url = alipaySubmit.buildRequestParaToString(parameter);
+    res.send(url);
 }
 
 Alipay.prototype.send_goods_confirm_by_platform = function(data, res){
