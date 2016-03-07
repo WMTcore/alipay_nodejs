@@ -1,0 +1,30 @@
+{
+  "name": "alipay",
+  "version": "1.0.0",
+  "description": "nojs_alipay",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WMTcore/alipay_nodejs.git"
+  },
+  "keywords": [
+    "nodejs",
+    "alipay"
+  ],
+  "author": "wmtcore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WMTcore/alipay_nodejs/issues"
+  },
+  "homepage": "https://github.com/WMTcore/alipay_nodejs#readme",
+  "dependencies": {
+    "xml2js": "^0.4.16",
+    "xmldom": "^0.1.22"
+  }
+}
